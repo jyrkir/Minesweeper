@@ -18,7 +18,7 @@ class GameController extends Controller {
         // Setup an empty game. To keep things very simple for candidates, we just store info on the session.
 
 
-        $game = new Game(20, 10, 20); // (mines, rows, columns) 
+        $game = new Game(5, 10, 20); // (mines, rows, columns) 
         $session = new Session();
         $session->start();
         $session->set('game', $game);

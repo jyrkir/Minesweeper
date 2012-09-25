@@ -22,7 +22,6 @@ class Game {
     public $mineLocations = array();
 
     /**
-     * 
      * @param type $numberOfMines
      * @param type $rows
      * @param type $columns
@@ -63,7 +62,7 @@ class Game {
                 if ($this->gameArea[$row][$column]->isMine()) {
                     $prevIsMine = TRUE;
                     // cells left and right
-                    if (($column >= 0 ) && ($column <= 19)) {
+                    if (($column >= 0 ) && ($column <= ($this->columns-1))) {
 
                         if ($column > 0) {
 
@@ -72,7 +71,7 @@ class Game {
                             $this->setNumbers($tempRow, $tempColumn);
                         }
 
-                        if ($row > 0 && $row < 10) {
+                        if ($row > 0 && $row <  $this->rows ) {
 
                             //cell above
                             $tempRow = $row - 1;
@@ -89,7 +88,7 @@ class Game {
                             }
 
                             //cell above right
-                            if ($column < 19) {
+                            if ($column < ($this->columns-1)) {
                                 $tempRow = $row - 1;
                                 $tempColumn = $column + 1;
                                 $this->setNumbers($tempRow, $tempColumn);
@@ -110,7 +109,7 @@ class Game {
                             }
 
                             //cell below right
-                            if ($column < 19) {
+                            if ($column < ($this->columns-1)) {
 
                                 $tempRow = $row + 1;
                                 $tempColumn = $column + 1;
@@ -238,7 +237,7 @@ class Game {
     }
 
     /**
-     * set cell type and check cells around if type Discovered Empty
+     * set cell type and check cells around if type TYPE_UNDISCOVERED
      * 
      * @param int $tempRow
      * @param int $tempColumn
@@ -250,7 +249,7 @@ class Game {
             $this->gameArea[$tempRow][$tempColumn]->type = 3;
         } else {
             if ($this->gameArea[$tempRow][$tempColumn]->type == 0) {
-                //empty celll
+                //empty cell
                 $this->gameArea[$tempRow][$tempColumn]->type = 2;
                 $this->checkAroundCell($tempRow, $tempColumn, 10, 20);
             }
@@ -260,7 +259,7 @@ class Game {
     /**
      * Search cells around given x and y if cell 0 > serch neigbours neigbours..
      * recurcive check cells around .
-     * @todo check logic Litle problems with xdebug!! xdebug.max_nesting_level=500 7
+     * @todo check logic Litle problems with xdebug!! xdebug.max_nesting_level=500 
      * now in my php.ini.
      * 
      * @param int $row Starting row
@@ -270,8 +269,6 @@ class Game {
      * 
      */
     public function checkAroundCell($row, $column, $rows, $columns) {
-
-
 
         //check max row
         if ($row < ($rows - 1)) {
