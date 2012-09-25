@@ -9,11 +9,11 @@
         {% endimage %}
 
         {% stylesheets filter="cssrewrite"
-            'bundles/loisteminesweeper/css/*'
-
+            '@LoisteMinesweeperBundle/Resources/public/css/*'
             output='css/dist/dist.css'
         %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
+        
+        <link rel="stylesheet" href="{{ asset_url }}" />     
         {% endstylesheets %}
 
         {% javascripts
@@ -23,9 +23,19 @@
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     </head>
+
     <body>
         {% block body %}
         Nothing to show.
         {% endblock %}
     </body>
+        <audio id="beep">
+	<source src="{{ asset('bundles/loisteminesweeper/audio/beep.mp3') }}"></source>
+	<source src=src="{{ asset('bundles/loisteminesweeper/audio/beep.ogg') }}"></source>
+	Your browser isn't invited for super fun audio time.
+        </audio>
+        <audio id="boom">
+	<source src="{{ asset('bundles/loisteminesweeper/audio/boom.mp3') }}"></source>
+	Your browser isn't invited for super fun audio time.
+        </audio>
 </html>

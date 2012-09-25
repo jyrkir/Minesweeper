@@ -1,38 +1,67 @@
 {% extends 'LoisteMinesweeperBundle::base.html.twig' %}
 
 {% block body %}
-
 <h1>Minesweeper</h1>
-
-<table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
+<div id="game-container">
+    <table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
     {% for row in 0..9 %}
-    <tr>
+            <tr>
         {% for column in 0..19 %}
-
         {# Define variables. #}
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
 
-        <td class="game-cell" data-type="{{ type }}">
+                    <td class="game-cell" data-type="{{ type }}">
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_NUMBER') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" />
+                            <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" />
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />
+                            <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />
+            {% endif %}
+                            
+            {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION') %}
+                            <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" />
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/cell.png') }}" />
+                            <img src="{{ asset('bundles/loisteminesweeper/images/cell.png') }}" />
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EMPTY') %}
-            <img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" />
+                            <img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" />
             {% endif %}
-        </td>
+                        </td>
         {% endfor %}
-    </tr>
+                    </tr>
     {% endfor %}
-</table>
+                </table>
 
+{% if boolWin == true %}
+                <div id="winInfo">
+                    <div id="winMessage">
+                        YOU WON!!!!!!!!!!
+
+                    </div>
+                    <div id="winUrls">
+                        <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                    </div>
+
+                </div>
+{% endif %}
+
+{% if boolWin == false %}
+
+                <div id="info">
+                    <div id="message">
+
+
+                    </div>
+                    <div id="urls">
+                        <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                    </div>
+
+                </div>
+        {% endif %} 
+            </div>
 {% endblock %}

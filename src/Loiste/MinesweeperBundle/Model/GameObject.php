@@ -15,6 +15,8 @@ class GameObject
     const TYPE_MINE_DISCOVERED = 5;
 
     public $type;
+    //numberOfNeighbours of neighboring mines for cell
+    public $numberOfNeighbours=0;
 
     public function __construct($type = 0)
     {
@@ -37,10 +39,23 @@ class GameObject
     }
 
     /**
-     * Returns the number of mines around this cell.
+     * set the number of mines around cell
+     * 
+     * @return int
      */
     public function getNumber()
     {
-        return floor(mt_rand(0, 7)) + 1;
+        //return floor(mt_rand(0, 7)) + 1;
+        return $this->numberOfNeighbours;
+    }
+    
+    /**
+     * set the number of mines around this cell
+     * 
+     * @param int $numberOfNeighbours
+     */
+    public function setNumber($numberOfNeighbours)
+    {
+       $this->numberOfNeighbours=$numberOfNeighbours;
     }
 }

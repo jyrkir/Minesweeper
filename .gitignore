@@ -9,3 +9,4 @@ composer.phar
 web/images/
 web/css/
 web/js
+nbproject/*

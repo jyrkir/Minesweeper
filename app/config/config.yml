@@ -24,6 +24,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
+    bundles:        [LoisteMinesweeperBundle ]
     #bundles:        []
     filters:
         cssrewrite: ~
