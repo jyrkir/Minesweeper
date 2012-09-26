@@ -1,12 +1,11 @@
 {% extends 'LoisteMinesweeperBundle::base.html.twig' %}
 
 {% block body %}
-<h1>Minesweeper</h1>
 <div id="game-container">
     <table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
-    {% for row in 0..9 %}
+    {% for row in 0..(rows-1) %}
             <tr>
-        {% for column in 0..19 %}
+        {% for column in 0..(columns-1) %}
         {# Define variables. #}
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
@@ -37,25 +36,45 @@
     {% endfor %}
                 </table>
 
-{% if boolWin == true %}
-                <div id="winInfo">
-                    <div id="winMessage">
+{% if status == 2 %}
+                <div id="info">
+                    <div id="message">
                         YOU WON!!!!!!!!!!
                     </div>
-                    <div id="winUrls">
+                    <div id="urls">
                         <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
                     </div>
 
                 </div>
 {% endif %}
-
-{% if boolWin == false %}
-
+        
+{% if status == 3 %}
                 <div id="info">
                     <div id="message">
+                        You Lost!!!!!!!!!!
                     </div>
                     <div id="urls">
                         <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                    </div>
+
+                </div>
+{% endif %}
+        
+{% if status == 0 %}
+
+                <div id="info">
+                    <div id="message">
+                               Minesweeper !!!     
+                                         
+
+                    </div>
+                        
+                    <div id="urls">
+                   <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
+                        {{ form_widget(form) }}
+
+                        <input type="submit" value="Play" />
+                        </form>
                     </div>
 
                 </div>

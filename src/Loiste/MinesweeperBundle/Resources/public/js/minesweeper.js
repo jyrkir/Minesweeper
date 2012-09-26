@@ -31,16 +31,14 @@ $(document).ready(function () {
 
     } else {
         
-        $("#message").text("Game info here...");
-        $("#message").append("<br>Click anywhere to start..")
+
         $("#info").css( "width","100%" );
         $("#info").css( "height","100%" );
     
         //hide info on click
-        $("#info").click(function() {
+        $("#play").click(function() {
 
-            $("#message").text("");
-            $("#urls").text("");
+
             $("#info").stop().animate({
                 "width": "0"
             }, {

@@ -2,11 +2,13 @@
 
 namespace Loiste\MinesweeperBundle\Model;
 
+
 /**
  * This class represents a game model.
  */
 class Game {
-
+    
+   
     /**
      * A two dimensional array of game objects.
      *
@@ -14,8 +16,8 @@ class Game {
      *
      * @var array
      */
-    public $gameArea;
-    public $win = FALSE;
+    public $gameArea= array();
+    public $status = 0; //0=new game, 1=game started, 2=win, 3=loose
     public $numberOfMines;
     public $rows;
     public $columns;
@@ -28,28 +30,40 @@ class Game {
      */
     public function __construct($numberOfMines, $rows, $columns) {
         // Upon constructing a new game instance, setup an empty game area.
-        $this->gameArea = array();
+    
         $this->rows = $rows;
         $this->columns = $columns;
-        $this->numberOfMines = $numberOfMines;
+        $this->numberOfMines =  $this->setNumberOfMines($numberOfMines);
 
+    }
+    public function getNumberOfMines() {
+        return $this->numberOfMines;
+    }
 
-        /**
-         * create mine locations.
-         */
-        $this->setMineLocations();
+    public function setNumberOfMines($numberOfMines) {
+        
+        $this->numberOfMines = ($numberOfMines* $this->columns*$this->rows)/100;
+    }
 
-        //Put mines in grid...
-        $this->createGameObjects();
+    public function getRows() {
+        return $this->rows;
+    }
 
-        //count how many mines around cell..
-        $this->countNumberOfMines();
+    public function setRows($rows) {
+        $this->rows = $rows;
+    }
+
+    public function getColumns() {
+        return $this->columns;
+    }
+
+    public function setColumns($columns) {
+        $this->columns = $columns;
     }
 
     /**
      * Count how many mines around cell..
-     * @todo supports only 20x10 grid needs bit rewriting... 
-     * 
+     *  
      */
     public function countNumberOfMines() {
 
@@ -71,7 +85,7 @@ class Game {
                             $this->setNumbers($tempRow, $tempColumn);
                         }
 
-                        if ($row > 0 && $row <  $this->rows ) {
+                        if ($row > 0 ) {
 
                             //cell above
                             $tempRow = $row - 1;
@@ -94,7 +108,9 @@ class Game {
                                 $this->setNumbers($tempRow, $tempColumn);
                             }
                         }
-                        if ($row >= 0 && $row < 9) {
+                        
+                        
+                        if ( $row <  ($this->rows -1)) {
 
                             //cell below
                             $tempRow = $row + 1;
@@ -177,7 +193,7 @@ class Game {
     /**
      * create gameobjects  
      */
-    private function createGameObjects() {
+    public function createGameObjects() {
         $i = 0;
 
         for ($row = 0; $row < $this->rows; $row++) {
@@ -199,7 +215,7 @@ class Game {
 
     /**
      * Check if there is cells to find ..
-     * @return boolean true if zero cells to find
+     * @return int true if zero cells to find
      */
     public function checkWin() {
 
@@ -219,9 +235,9 @@ class Game {
             $row++;
         }
         if ($cellsToFind == 0) {
-            return TRUE;
+            return 2;
         } else {
-            return FALSE;
+            return 1;
         }
     }
 
@@ -230,7 +246,7 @@ class Game {
      * @param int $tempRow
      * @param int $tempColumn
      */
-    private function setNumbers($tempRow, $tempColumn) {
+    public function setNumbers($tempRow, $tempColumn) {
 
         $numberOfNeighbours = $this->gameArea[$tempRow][$tempColumn]->getNumber();
         $this->gameArea[$tempRow][$tempColumn]->setNumber($numberOfNeighbours + 1);
@@ -242,22 +258,22 @@ class Game {
      * @param int $tempRow
      * @param int $tempColumn
      */
-    private function checkCell($tempRow, $tempColumn) {
+    public function checkCell($tempRow, $tempColumn) {
 
         if ($this->gameArea[$tempRow][$tempColumn]->numberOfNeighbours > 0) {
-            //this is number -> show it
+            //this has mines as neighbour -> show count
             $this->gameArea[$tempRow][$tempColumn]->type = 3;
         } else {
             if ($this->gameArea[$tempRow][$tempColumn]->type == 0) {
                 //empty cell
                 $this->gameArea[$tempRow][$tempColumn]->type = 2;
-                $this->checkAroundCell($tempRow, $tempColumn, 10, 20);
+                $this->checkAroundCell($tempRow, $tempColumn, $this->rows, $this->columns);
             }
         }
     }
 
     /**
-     * Search cells around given x and y if cell 0 > serch neigbours neigbours..
+     * Search cells around given x and y if cell 0 > serch neighbours neighbours..
      * recurcive check cells around .
      * @todo check logic Litle problems with xdebug!! xdebug.max_nesting_level=500 
      * now in my php.ini.
@@ -268,10 +284,9 @@ class Game {
      * @param int $columns Number of colums
      * 
      */
-    public function checkAroundCell($row, $column, $rows, $columns) {
-
+    public function checkAroundCell($row, $column) {
         //check max row
-        if ($row < ($rows - 1)) {
+        if ($row < ($this->rows - 1)) {
             //N
             $tempRow = $row + 1;
             $tempColumn = $column;
@@ -281,7 +296,7 @@ class Game {
             $tempRow = $row + 1;
             $tempColumn = $column + 1;
 
-            if ($column < ($columns - 1)) {
+            if ($column < ($this->columns - 1)) {
                 $this->checkCell($tempRow, $tempColumn);
             }
             //NE 
@@ -305,7 +320,7 @@ class Game {
         $tempRow = $row;
         $tempColumn = $column + 1;
 
-        if ($column < ($columns - 1)) {
+        if ($column < ($this->columns - 1)) {
             $this->checkCell($tempRow, $tempColumn);
         }
 
@@ -330,7 +345,7 @@ class Game {
             $tempRow = $row - 1;
             $tempColumn = $column + 1;
 
-            if ($column < ($columns - 1)) {
+            if ($column < ($this->columns - 1)) {
                 $this->checkCell($tempRow, $tempColumn);
             }
         }

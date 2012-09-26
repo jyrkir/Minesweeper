@@ -5,33 +5,104 @@ namespace Loiste\MinesweeperBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Loiste\MinesweeperBundle\Model\Game;
+use Symfony\Component\HttpFoundation\Request;
 
 class GameController extends Controller {
 
     /**
      * 
-     * @return array gamearea, boolean win
+     * @return array gamearea, int status
      * @todo game supports only 10x20 grid .. game class needs work
      *  
      */
-    public function startAction() {
+    public function startAction(Request $request) {
         // Setup an empty game. To keep things very simple for candidates, we just store info on the session.
+        $game = new Game(20, 10, 20); // (mines, rows, columns)
+        if ($request->getMethod() == 'POST') {
 
 
-        $game = new Game(5, 10, 20); // (mines, rows, columns) 
-        $session = new Session();
-        $session->start();
-        $session->set('game', $game);
+            /*
+              $game->setColumns($request->request->get('columns'));
+              $game->setRows($request->request->get('rows'));
+             * 
+             */
 
-        return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
-                    'gameArea' => $game->gameArea,
-                    'boolWin' => $game->win
-                ));
+
+            $postDataForm = $request->request->get('form');
+
+
+            $game->setColumns($postDataForm['columns']);
+            $game->setRows($postDataForm['rows']);
+            $game->setNumberOfMines($postDataForm['numberOfMines']);
+
+            /**
+             * create mine locations.
+             */
+            $game->setMineLocations();
+
+            //Put mines in grid...
+            $game->createGameObjects();
+
+            //count how many mines around cell..
+            $game->countNumberOfMines();
+
+            $session = new Session();
+            $session->start();
+            $session->set('game', $game);
+
+            $game->status = 1;
+            return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
+                        'gameArea' => $game->gameArea,
+                        'status' => $game->status,
+                        'rows' => $game->rows,
+                        'columns' => $game->columns
+                    ));
+        } else {
+
+
+            $session = new Session();
+            $session->start();
+            /**
+             * create mine locations.
+             */
+            $game->setMineLocations();
+
+            //Put mines in grid...
+            $game->createGameObjects();
+
+            //count how many mines around cell..
+            $game->countNumberOfMines();
+            $session->set('game', $game);
+
+            $form = $this->createFormBuilder($game)
+                    ->add('numberOfMines', 'choice', array(
+                        'choices' => array('20' => '20%', '40' => '40%'),
+                        'data' => 20,
+                        'expanded'  => true
+                    ))
+                    ->add('rows', 'choice', array(
+                        'choices' => array('10' => '10', '15' => '15', '30' => '30'),
+                        'expanded'  => true
+                    ))
+                    ->add('columns', 'choice', array(
+                        'choices' => array('10' => '10', '20' => '20', '30' => '30'),
+                        'expanded'  => true
+                    ))
+                    ->getForm();
+
+            return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
+                        'gameArea' => $game->gameArea,
+                        'status' => $game->status,
+                        'rows' => $game->rows,
+                        'columns' => $game->columns,
+                        'form' => $form->createView()
+                    ));
+        }
     }
 
     /**
      * 
-     * @return array gamearea, boolean win
+     * @return array gamearea, int status
      * @todo Description
      */
     public function makeMoveAction() {
@@ -46,26 +117,31 @@ class GameController extends Controller {
         /** @var $game Game */
         if ($game->gameArea[$row][$column]->isMine()) {
             $game->gameArea[$row][$column]->type = 4;
-            
+
             // game over ---->
             $game->showMines();
-
-            
+            $game->status = 3; //game lost
         } else {
+
             if ($game->gameArea[$row][$column]->numberOfNeighbours > 0) {
                 $game->gameArea[$row][$column]->type = 3;
             } else {
+
                 $game->gameArea[$row][$column]->type = 2;
-                $game->checkAroundCell($row, $column, 10, 20);
+                //start checking cells around..
+                $game->checkAroundCell($row, $column);
             }
+            $game->status = $game->checkWin();
         }
-        
-        $game->win = $game->checkWin();
+
+
 
 
         return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
                     'gameArea' => $game->gameArea,
-                    'boolWin' => $game->win
+                    'status' => $game->status,
+                    'rows' => $game->rows,
+                    'columns' => $game->columns
                 ));
     }
 
