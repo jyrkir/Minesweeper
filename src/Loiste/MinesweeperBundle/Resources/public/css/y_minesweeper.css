@@ -91,44 +91,54 @@ img {
     line-height: normal;
 
 }
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+#message {
+
+font-size: 2em;
+width:90%;
+padding: 2%;
+}
 
 #urls  {
 margin:0 auto;
 width:90%;
+text-align: left;
 }
-
-#message {
-margin:0 auto;
-font-size: 2em;
+#urls div {
 width:90%;
+text-align: left;
 }
 
-#urls div form {
-margin:0 auto;
-width:90%;
-
-
-}
-#urls input[type=radio] 
- { margin: 5px; padding: 5px; }
 #urls label {
-    
-display:inline;
-margin-top: 20px;
-} 
-#urls submit {
+  display: inline;
+  float: left;
+  width: 40%;
+  text-align: right;
+  margin-top:0;
 
-border:none;
-margin-top:20px;
 }
 
-#urls submit:hover {
-opacity:0.9;
+.submit {
+
+  background-color: #00CC00;
 }
+#urls select {
+  display: inline;
+  float: left;
+  width: 40%;
+  text-align: center;
+  margin-top:0;
 
+}
+#playButton {
 
-
-img {
-	max-width: 100%;
-	height: auto;
+     margin-bottom: 10px;
+}
+#playButton .button{
+padding: 5%;
+font-size: 2em;
 }

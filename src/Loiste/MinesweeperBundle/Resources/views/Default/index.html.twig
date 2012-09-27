@@ -87,8 +87,9 @@
                         <div id="urls">
                             <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
                         {{ form_widget(form) }}
-
-                                    <input type="submit" value="Play" />
+                                    <div id="playButton">
+                                    <input type="submit" value="Play" class="button"/>
+                                    </div>
                                 </form>
                             </div>
 
