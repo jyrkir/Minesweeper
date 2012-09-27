@@ -1,8 +1,28 @@
 {% extends 'LoisteMinesweeperBundle::base.html.twig' %}
 {% block aside %}
-<div id="gameAside">poooo</div>
+{% if status == 1 %}
+<script>
+$(document).ready(function () {
+$('.header-container').remove();
+$('.footer-container').remove();
+$('aside').remove();
+$("*").css( "margin","0");
+$("*").css( "padding","0" );
+
+$(".blog").css( "height",$(window).height()  );
+$(".blog").css( "width","auto" );
+});
+</script>
+
+{% endif %}
+<div id="gameAside">
+                    <ul>
+                        <li><a href="{{ path('LoisteMinesweeperBundle_start') }}">Fullscreen</a></li>
+                    </ul>
+</div>
 {% endblock %}                                    
 {% block body %}
+
 <article class="blog">
     <audio id="beep">
         <source src="{{ asset('bundles/loisteminesweeper/audio/beep.mp3') }}"/>
@@ -80,8 +100,6 @@
                     <div id="info">
                         <div id="message">
                             Minesweeper !!!     
-
-
                         </div>
 
                         <div id="urls">
