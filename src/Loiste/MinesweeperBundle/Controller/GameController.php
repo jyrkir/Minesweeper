@@ -45,9 +45,11 @@ class GameController extends Controller {
 
             //count how many mines around cell..
             $game->countNumberOfMines();
-
+            
+            if (!isset($session)) {
             $session = new Session();
             $session->start();
+            }
             $session->set('game', $game);
 
             $game->status = 1;
@@ -59,9 +61,10 @@ class GameController extends Controller {
                     ));
         } else {
 
-
+            if (!isset($session)) {
             $session = new Session();
             $session->start();
+            }
             /**
              * create mine locations.
              */
@@ -78,15 +81,15 @@ class GameController extends Controller {
                     ->add('numberOfMines', 'choice', array(
                         'choices' => array('20' => '20%', '40' => '40%'),
                         'data' => 20,
-                        'expanded'  => true
+                        
                     ))
                     ->add('rows', 'choice', array(
                         'choices' => array('10' => '10', '15' => '15', '30' => '30'),
-                        'expanded'  => true
+                        
                     ))
                     ->add('columns', 'choice', array(
                         'choices' => array('10' => '10', '20' => '20', '30' => '30'),
-                        'expanded'  => true
+                        
                     ))
                     ->getForm();
 
@@ -109,10 +112,12 @@ class GameController extends Controller {
 
         $row = $this->getRequest()->get('row'); // Retrieves the row index.
         $column = $this->getRequest()->get('column'); // Retrieves the column index.
-
+        
+        if (!isset($session)) {
         $session = new Session();
         $session->start();
         $game = $session->get('game');
+        }
 
         /** @var $game Game */
         if ($game->gameArea[$row][$column]->isMine()) {

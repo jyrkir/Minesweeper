@@ -1,7 +1,7 @@
 /*
 html {
     background: #eee;
-    margin: 0 64px;
+    margin: 0 0px;
 }
 
 body {
@@ -36,45 +36,51 @@ h1 {
     font-weight: bold;
 }
 */
-html {
-    background: #eee;
-}
 
-body {
-    font-family: "Segoe UI", sans-serif;
-}
+
+
 
 #game-container {
-    position: relative;
-    width: 60%;
+
+    width: 100%;
     height: auto;
+    position: relative;
+    line-height: 0;
 
 }
+
 
 #game {
     border-spacing: 0;
-    border-collapse: collapse;
-    box-shadow: 0 0 16px 8px rgba(0, 0, 0, 0.25);
+    width:100%;
+height:100%;
+border-collapse:collapse;
+   
 }
 
 .game-cell {
 
 
-    border: 0px solid #fff;
     cursor: pointer;
+    
 
 
 }
 
+img-container{
+    background-color: yellow;
 
+}
 img {
+
     width: 100%;
 }
+
 #info {
-    background-color: red;
+    background-color: black;
     vertical-align: middle;
     opacity:0.7;
-    filter:alpha(opacity=70); /* For IE8 and earlier */
+    filter:alpha(opacity=70); 
     position: absolute;
     left:0px;
     top:0px;
@@ -82,33 +88,47 @@ img {
     height: 100%;
     display: table-cell;
     text-align: center;
+    line-height: normal;
 
 }
+
+#urls  {
+margin:0 auto;
+width:90%;
+}
+
 #message {
-    font-size: 2em;
-}
-#urls {
-   /* display:none;
-   */
-    font-size: 1em;
+margin:0 auto;
+font-size: 2em;
+width:90%;
 }
 
+#urls div form {
+margin:0 auto;
+width:90%;
 
-form {
- font-size: 1em;
 
 }
-#form div{
+#urls input[type=radio] 
+ { margin: 5px; padding: 5px; }
+#urls label {
     
-
-    border-width: 1px;
-    margin-top: 2%;
-}
-
-submit {
+display:inline;
+margin-top: 20px;
+} 
+#urls submit {
 
 border:none;
+margin-top:20px;
+}
 
+#urls submit:hover {
+opacity:0.9;
 }
 
 
+
+img {
+	max-width: 100%;
+	height: auto;
+}

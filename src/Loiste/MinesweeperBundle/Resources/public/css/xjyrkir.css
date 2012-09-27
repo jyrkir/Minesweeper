@@ -1,0 +1,279 @@
+/* 
+    Document   : jyrki.css
+    Created on : 13.9.2012, 17:31:26
+    Author     : jyrki
+    Description:
+       My initializr version... Want to keep orginal untouched..
+*/
+
+
+/* ===== Initializr Styles ==================================================
+   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+   ========================================================================== */
+
+/* ===================
+    ALL: Jyrkir Theme
+   =================== */
+html,
+button,
+input,
+select,
+textarea {
+    color: white;
+     background: black;
+}
+.header-container {
+    border-bottom: 10px solid #0E0000;
+    
+}
+
+
+#login {
+    position: absolute;
+    top:10px;
+    right:10px;
+
+ 
+}
+
+
+
+#si_teTitle {
+    width: 100%;
+    background:url(/bundles/jyrkirhello/img/bk.png);
+    background-size:100% auto;
+    background-repeat:no-repeat;
+        
+
+}
+
+.footer-container,
+.main aside {
+    border-top: 1px solid yellow;
+}
+
+.header-container,
+.footer-container,
+.main aside {
+    background:  #8B0000;
+}
+/*
+.header-container {
+    background:url(/bundles/jyrkirhello/img/bk.png);
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+}
+*/
+.title {
+    color: black;
+}
+
+/* ==============
+    MOBILE: Menu
+   ============== */
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: block;
+    margin-bottom: 1px;
+    padding: 15px 0;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+
+    color: white;
+    background: #330000;
+        opacity:0.8;
+        
+}
+
+nav a:hover,
+nav a:visited {
+    color: white;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ==============
+    MOBILE: Main
+   ============== */
+
+.main {
+    padding: 30px 0;
+}
+
+.main article h1 {
+    font-size: 2em;
+}
+
+.main aside {
+    color: white;
+    padding: 0px 5% 30px;
+}
+
+.footer-container footer {
+    color: white;
+    padding: 20px 0;
+}
+
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 .title {
+    padding-top: 20px;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+
+/* ====================
+    INTERMEDIATE: Menu
+   ==================== */
+
+
+    nav a {
+    float: left;
+    width: 18%;
+    margin: 2px 1px;
+    padding: 5px 2%;
+    margin-bottom: 0;
+}
+
+    nav li:first-child a {
+        margin-left: 0;
+    }
+
+    nav li:last-child a {
+        margin-right: 0;
+    }
+
+/* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== */
+
+    nav ul li {
+        display: inline;
+    }
+
+    .oldie nav a {
+        margin: 0 0.7%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+
+/* ====================
+    WIDE: CSS3 Effects
+   ==================== */
+
+    .header-container,
+    .main aside {
+        -webkit-box-shadow: 0 0px 0px #aaa;
+           -moz-box-shadow: 0 0px 0px #aaa;
+                box-shadow: 0 0px 0px #aaa;
+    }
+
+/* ============
+    WIDE: Menu
+   ============ */
+
+    .title {
+        float: left;
+    }
+
+    nav {
+        float: left;
+        width: 100%;
+    }
+
+/* ============
+    WIDE: Main
+   ============ */
+
+    .main article {
+        float: left;
+        width: 57%;
+    }
+
+    .main aside {
+        float: right;
+        width: 28%;
+    }
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== */
+
+    .wrapper {
+        width: 1026px; /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+}
+form {
+margin:0 auto;
+width:400px;
+}
+label {
+display: block;
+margin-top: 20px;
+} 
+submit {
+
+border:none;
+margin-top:20px;
+}
+
+submit:hover {
+opacity:0.9;
+}
+input, textarea {
+
+border: 1px solid #ddd;
+color: #ccc;
+
+}
+#remember_me {
+  
+    margin-top:0px;
+}
+#pp {
+   margin-top:0px;
+   display:inline;
+
+}
+img {
+	max-width: 60%;
+	height: auto;
+}

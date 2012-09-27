@@ -1,83 +1,99 @@
 {% extends 'LoisteMinesweeperBundle::base.html.twig' %}
-
+{% block aside %}
+<div id="gameAside">poooo</div>
+{% endblock %}                                    
 {% block body %}
-<div id="game-container">
-    <table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
+<article class="blog">
+    <audio id="beep">
+        <source src="{{ asset('bundles/loisteminesweeper/audio/beep.mp3') }}"/>
+        <source src="{{ asset('bundles/loisteminesweeper/audio/beep.ogg') }}"/>
+    </audio>
+    <audio id="boom">
+        <source src="{{ asset('bundles/loisteminesweeper/audio/boom.mp3') }}"/>
+    </audio>
+
+    <div id="game-container" >
+        <table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
     {% for row in 0..(rows-1) %}
-            <tr>
+                <tr>
         {% for column in 0..(columns-1) %}
         {# Define variables. #}
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
 
-                    <td class="game-cell" data-type="{{ type }}">
+                        <td class="game-cell" data-type="{{ type }}">
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_NUMBER') %}
-                            <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" />
+                                <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" alt="n" />
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
-                            <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" />
+                                <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" alt="x" />
             {% endif %}
-                            
+
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION') %}
-                            <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" />
+                                <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" alt="X"/>
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
-                            <img src="{{ asset('bundles/loisteminesweeper/images/cell.png') }}" />
+
+                                    <img src="{{ asset('bundles/loisteminesweeper/images/cell.png') }}" alt="Q" />
+
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EMPTY') %}
-                            <img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" />
+
+                                    <img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" alt="-" />
+
             {% endif %}
-                        </td>
+                            </td>
         {% endfor %}
-                    </tr>
+                        </tr>
     {% endfor %}
-                </table>
+                    </table>
 
 {% if status == 2 %}
-                <div id="info">
-                    <div id="message">
-                        YOU WON!!!!!!!!!!
-                    </div>
-                    <div id="urls">
-                        <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
-                    </div>
+                    <div id="info">
+                        <div id="message">
+                            YOU WON!!!!!!!!!!
+                        </div>
+                        <div id="urls">
+                            <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                        </div>
 
-                </div>
+                    </div>
 {% endif %}
-        
+
 {% if status == 3 %}
-                <div id="info">
-                    <div id="message">
-                        You Lost!!!!!!!!!!
-                    </div>
-                    <div id="urls">
-                        <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
-                    </div>
+                    <div id="info">
+                        <div id="message">
+                            You Lost!!!!!!!!!!
+                        </div>
+                        <div id="urls">
+                            <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                        </div>
 
-                </div>
+                    </div>
 {% endif %}
-        
+
 {% if status == 0 %}
 
-                <div id="info">
-                    <div id="message">
-                               Minesweeper !!!     
-                                         
+                    <div id="info">
+                        <div id="message">
+                            Minesweeper !!!     
 
-                    </div>
-                        
-                    <div id="urls">
-                   <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
+
+                        </div>
+
+                        <div id="urls">
+                            <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
                         {{ form_widget(form) }}
 
-                        <input type="submit" value="Play" />
-                        </form>
-                    </div>
+                                    <input type="submit" value="Play" />
+                                </form>
+                            </div>
 
-                </div>
+                        </div>
         {% endif %} 
-            </div>
+                    </div>
+                </article>
 {% endblock %}

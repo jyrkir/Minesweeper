@@ -24,6 +24,17 @@ $(function() {
 
 $(document).ready(function () {
 
+/*
+$('#game img').each(function() {
+  var pwidth = $(this).parent('td').width();
+  $(this).css( "width",pwidth );
+    
+    var pHeight = $(this).parent('td').height();
+  $(this).css( "height",pHeight );
+});
+
+*/
+
     //if not first page hide info..
     if(window.location.href.indexOf("makeMove") >=0) {
         $("#info").css( "width","0" );
@@ -57,17 +68,27 @@ $(document).ready(function () {
             width: "100%",
             height: "100%",
             opacity: 0.4,
-            fontSize: "3em",
+            fontSize: "150%m",
             borderWidth: "10px"
         }, 1500 );
   
-        $("#message").text("YOU LOOSS, BOOM");
+        $("#message").text("YOU LOOOSE, BOOM");
         $("#urls").show("fast");
     });
 
+ /*
+$("#gameAside").append('<p>' + $(window).width() + '</p>');
+$("#gameAside").append('<p>' + $(document).width() + '</p>');
+$("#gameAside").append('<p>' + $(window).height() + '</p>');
+$("#gameAside").append('<p>' + $(document).height() + '</p>');
+
+$("#game-container").css( "left","0px" );
+$("game-container").css( "top","0px" );
+$("#game-container").css( "position","fixed" );
+$("#game-container").css( "width","100%" );
+$("game-container").css( "height","100%" );
+*/
  
-    
-   
 
 
 });
