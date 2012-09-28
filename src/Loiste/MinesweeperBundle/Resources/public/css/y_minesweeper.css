@@ -104,14 +104,15 @@ padding: 2%;
 }
 
 #urls  {
+    
 margin:0 auto;
-width:90%;
+width:100%;
 text-align: left;
 }
-#urls div {
-width:90%;
-text-align: left;
+#urls form {
+width:100%;
 }
+
 
 #urls label {
   display: inline;
@@ -134,11 +135,18 @@ text-align: left;
   margin-top:0;
 
 }
-#playButton {
+#form {
+    width: 60%;
+}
+#playButton div{
+    width: 30%;
+      float: left;
+      padding: 2%;
 
-     margin-bottom: 10px;
 }
 #playButton .button{
-padding: 5%;
+padding: 2%;
 font-size: 2em;
+height: 100%;
+
 }

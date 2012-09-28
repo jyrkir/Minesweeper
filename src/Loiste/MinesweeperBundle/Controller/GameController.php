@@ -78,17 +78,20 @@ class GameController extends Controller {
             $session->set('game', $game);
 
             $form = $this->createFormBuilder($game)
+                    
                     ->add('numberOfMines', 'choice', array(
                         'choices' => array('20' => '20%', '40' => '40%'),
                         'data' => 20,
-                        
+                        'label' => 'Mines :'
                     ))
                     ->add('rows', 'choice', array(
                         'choices' => array('10' => '10', '15' => '15', '30' => '30'),
+                        'label' => 'Rows :'
                         
                     ))
                     ->add('columns', 'choice', array(
                         'choices' => array('10' => '10', '20' => '20', '30' => '30'),
+                        'label' => 'Columns :'
                         
                     ))
                     ->getForm();
