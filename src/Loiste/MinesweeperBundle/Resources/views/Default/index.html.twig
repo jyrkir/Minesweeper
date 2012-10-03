@@ -3,88 +3,55 @@
 {% if status == 1 %}
 <script>
 $(document).ready(function () {
-    
 $('.header-container').remove();
 $('.footer-container').remove();
 $('aside').remove();
 $("*").css( "margin","0");
 $("*").css( "padding","0" );
-$("*").css( "width","0" );
-var landscape=new Boolean(false);
 
-var rowCount = $('#game tr').length;
-var colCount =$("#game").find("tr:first td").length;
-var width=$(window).width();
-var height=$(window).height();
-
-if (width>height) {
-    landscape=true;
-    };
-    
-var cellHeight=height/rowCount;
-var cellWidth= width/colCount;
-var size =0;
-
-if (cellHeight>cellWidth) {
-    size=Math.floor(cellWidth) ;
-    } else {
-        size=Math.floor(cellHeight);
-    }
-
-
-$("#gameAside").html('<p> rows : ' + rowCount + '</p>');
-$("#gameAside").append('<p> cols : ' + colCount + '</p>');
-$("#gameAside").append('<p> window w : ' + width + '</p>');
-$("#gameAside").append('<p> window height: ' + height + '</p>');
-$("#gameAside").append('<p> landscape: ' + landscape + '</p>');
-$("#gameAside").append('<p> cellWidth: ' + cellWidth + '</p>');
-$("#gameAside").append('<p> cellHeight: ' + cellHeight + '</p>');
-$("#gameAside").append('<p> size: ' + (size + "px") + '</p>');
-
-$("img").css( "height",size + "px");
-$("img").css( "width",size + "px");
+$(".blog").css( "height",$(window).height()  );
+$(".blog").css( "width","auto" );
 });
-
 </script>
 
 {% endif %}
-    <div id="gameAside">
-        <ul>
-            <li><a href="{{ path('LoisteMinesweeperBundle_start') }}">game</a></li>
-        </ul>
-    </div>
+<div id="gameAside">
+                    <ul>
+                        <li><a href="{{ path('LoisteMinesweeperBundle_start') }}">Fullscreen</a></li>
+                    </ul>
+</div>
 {% endblock %}                                    
 {% block body %}
 
-    <article class="blog">
-        <audio id="beep">
-            <source src="{{ asset('bundles/loisteminesweeper/audio/beep.mp3') }}"/>
-            <source src="{{ asset('bundles/loisteminesweeper/audio/beep.ogg') }}"/>
-        </audio>
-        <audio id="boom">
-            <source src="{{ asset('bundles/loisteminesweeper/audio/boom.mp3') }}"/>
-        </audio>
+<article class="blog">
+    <audio id="beep">
+        <source src="{{ asset('bundles/loisteminesweeper/audio/beep.mp3') }}"/>
+        <source src="{{ asset('bundles/loisteminesweeper/audio/beep.ogg') }}"/>
+    </audio>
+    <audio id="boom">
+        <source src="{{ asset('bundles/loisteminesweeper/audio/boom.mp3') }}"/>
+    </audio>
 
-        <div id="game-container" >
-            <table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
+    <div id="game-container" >
+        <table id="game" data-route-make-move="{{ path('LoisteMinesweeperBundle_makeMove') }}">
     {% for row in 0..(rows-1) %}
-                    <tr>
+                <tr>
         {% for column in 0..(columns-1) %}
         {# Define variables. #}
         {% set gameObject = gameArea[row][column] %}
         {% set type = gameObject.type %}
 
-                            <td class="game-cell" data-type="{{ type }}">
+                        <td class="game-cell" data-type="{{ type }}">
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_NUMBER') %}
-                                    <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" alt="n" />
+                                <img src="{{ asset('bundles/loisteminesweeper/images/' ~ gameObject.number ~ '.png') }}" alt="n" />
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE_DISCOVERED') %}
-                                    <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" alt="x" />
+                                <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/mine.png') }}" alt="x" />
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_EXPLOSION') %}
-                                    <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" alt="X"/>
+                                <img class="mine" src="{{ asset('bundles/loisteminesweeper/images/explosion.png') }}" alt="X"/>
             {% endif %}
 
             {% if type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_UNDISCOVERED') or type == constant('Loiste\\MinesweeperBundle\\Model\\GameObject::TYPE_MINE') %}
@@ -98,96 +65,54 @@ $("img").css( "width",size + "px");
                                     <img src="{{ asset('bundles/loisteminesweeper/images/empty.png') }}" alt="-" />
 
             {% endif %}
-                                </td>
+                            </td>
         {% endfor %}
-                            </tr>
+                        </tr>
     {% endfor %}
-                        </table>
+                    </table>
 
 {% if status == 2 %}
-                <script>
-                        $(document).ready(function () {
-
-                         $('.game-cell').each(function(index) {
-                              $(this).unbind('click');
-                         });
-                    });   
-                    </script>
-                        <div id="info">
-                            <div id="message">
-                                YOU WON!!!!!!!!!!
-                            </div>
-                            <div id="urls">
-                                <div id="newGame">
-                                <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
-                                </div>
-                            </div>
-
+                    <div id="info">
+                        <div id="message">
+                            YOU WON!!!!!!!!!!
                         </div>
+                        <div id="urls">
+                            <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                        </div>
+
+                    </div>
 {% endif %}
 
 {% if status == 3 %}
-                <script>
-                        $(document).ready(function () {
-
-                         $('.game-cell').each(function(index) {
-                              $(this).unbind('click');
-                         });
-                        var audio = $("#boom")[0];
-
-                        audio.play();
-                          $("#info").css( "height","0" );
-                         $("#info").css( "width","0" );
-                        $("#info").animate({
-                            width: "100%",
-                            height: "100%",
-                            opacity: 0.4,
-                            fontSize: "150%m",
-                            borderWidth: "10px"
-                        }, 1500 );
-                    });   
-                    </script>
-                        <div id="info">
-                            <div id="message">
-                                You Lost!!!!!!!!!!
-                            </div>
-                            <div id="urls">
-                                <div id="newGame">
-                                <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
-                                </div>
-                            </div>
-
+                    <div id="info">
+                        <div id="message">
+                            You Lost!!!!!!!!!!
                         </div>
-                <script>
-                        
+                        <div id="urls">
+                            <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
+                        </div>
 
+                    </div>
 {% endif %}
 
 {% if status == 0 %}
-                <script>
-                        $(document).ready(function () {
 
-                         $('.game-cell').each(function(index) {
-                              $(this).unbind('click');
-                         });
-                    });   
-                    </script>
                     <div id="info">
-                            <div id="message">
-                                Minesweeper !!!     
-                            </div>
-
-                            <div id="urls">
-                                <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
-                        {{ form_widget(form) }}
-                                        <div id="playButton">
-                                            <input type="submit" value="Play" class="button"/>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-        {% endif %} 
+                        <div id="message">
+                            Minesweeper !!!     
                         </div>
-                    </article>
+
+                        <div id="urls">
+                            <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
+                        {{ form_widget(form) }}
+                                    <div id="playButton">
+                                    <input type="submit" value="Play" class="button"/>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+        {% endif %} 
+                    </div>
+                </article>
 {% endblock %}
