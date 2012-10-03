@@ -152,5 +152,5 @@ class GameController extends Controller {
                     'columns' => $game->columns
                 ));
     }
-
+ 
 }
