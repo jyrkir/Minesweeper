@@ -5,8 +5,8 @@ namespace Loiste\MinesweeperBundle\Model;
 /**
  * This class represents a game object.
  */
-class GameObject
-{
+class GameObject {
+
     const TYPE_UNDISCOVERED = 0;
     const TYPE_MINE = 1;
     const TYPE_EMPTY = 2; // Discovered.
@@ -16,25 +16,21 @@ class GameObject
 
     public $type;
     //numberOfNeighbours of neighboring mines for cell
-    public $numberOfNeighbours=0;
+    public $numberOfNeighbours = 0;
 
-    public function __construct($type = 0)
-    {
+    public function __construct($type = 0) {
         $this->type = $type;
     }
 
-    public function isMine()
-    {
+    public function isMine() {
         return $this->type === GameObject::TYPE_MINE;
     }
 
-    public function isNumber()
-    {
+    public function isNumber() {
         return $this->type === GameObject::TYPE_NUMBER;
     }
 
-    public function isEmpty()
-    {
+    public function isEmpty() {
         return $this->type === GameObject::TYPE_EMPTY;
     }
 
@@ -43,19 +39,18 @@ class GameObject
      * 
      * @return int
      */
-    public function getNumber()
-    {
+    public function getNumber() {
         //return floor(mt_rand(0, 7)) + 1;
         return $this->numberOfNeighbours;
     }
-    
+
     /**
      * set the number of mines around this cell
      * 
      * @param int $numberOfNeighbours
      */
-    public function setNumber($numberOfNeighbours)
-    {
-       $this->numberOfNeighbours=$numberOfNeighbours;
+    public function setNumber($numberOfNeighbours) {
+        $this->numberOfNeighbours = $numberOfNeighbours;
     }
+
 }
