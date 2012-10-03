@@ -42,7 +42,8 @@
                 },
                 {
                     "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
                 },
                 {
                     "name": "Roman Borschel",
@@ -53,7 +54,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -75,16 +76,16 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/kriswallsmith/assetic.git",
-                "reference": "a6baab9b4c4361aca51bf90ee47c1586dff3cb0c"
+                "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/assetic/zipball/a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
-                "reference": "a6baab9b4c4361aca51bf90ee47c1586dff3cb0c",
+                "url": "https://github.com/kriswallsmith/assetic/zipball/e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
+                "reference": "e22c5e07e672bb0cf43127e97e9368b53abf4aa8",
                 "shasum": ""
             },
             "require": {
-                "symfony/process": "2.1.*",
+                "symfony/process": ">=2.1.0,<2.3-dev",
                 "php": ">=5.3.1"
             },
             "require-dev": {
@@ -101,7 +102,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "1347622188",
+            "time": "1349004759",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -283,32 +284,32 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "64345e86761444c35679e1aed424e1ed2370f0de"
+                "reference": "5ebcf72d9b2d7028ca8c9b71b464ccc81d4795d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/AsseticBundle/zipball/64345e86761444c35679e1aed424e1ed2370f0de",
-                "reference": "64345e86761444c35679e1aed424e1ed2370f0de",
+                "url": "https://github.com/symfony/AsseticBundle/zipball/5ebcf72d9b2d7028ca8c9b71b464ccc81d4795d2",
+                "reference": "5ebcf72d9b2d7028ca8c9b71b464ccc81d4795d2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "symfony/framework-bundle": "2.1.*",
-                "kriswallsmith/assetic": "1.1.*"
+                "kriswallsmith/assetic": "1.1.*",
+                "symfony/framework-bundle": ">=2.1.0,<2.3-dev"
             },
             "require-dev": {
-                "symfony/twig-bundle": "2.1.*",
-                "symfony/console": "2.1.*",
-                "symfony/class-loader": "2.1.*",
-                "symfony/yaml": "2.1.*",
-                "symfony/form": "2.1.*",
-                "symfony/dom-crawler": "2.1.*",
-                "symfony/css-selector": "2.1.*"
+                "symfony/twig-bundle": ">=2.1.0,<2.3-dev",
+                "symfony/console": ">=2.1.0,<2.3-dev",
+                "symfony/class-loader": ">=2.1.0,<2.3-dev",
+                "symfony/yaml": ">=2.1.0,<2.3-dev",
+                "symfony/form": ">=2.1.0,<2.3-dev",
+                "symfony/dom-crawler": ">=2.1.0,<2.3-dev",
+                "symfony/css-selector": ">=2.1.0,<2.3-dev"
             },
             "suggest": {
-                "symfony/twig-bundle": "2.1.*"
+                "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
-            "time": "1347626244",
+            "time": "1348938560",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -345,12 +346,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "f62fa8a79edc94240a7fd3ef3096ddd789eced4f"
+                "reference": "b6dfa76b7dd313a6f407d0c0dd1c1942747d62d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/zipball/f62fa8a79edc94240a7fd3ef3096ddd789eced4f",
-                "reference": "f62fa8a79edc94240a7fd3ef3096ddd789eced4f",
+                "url": "https://github.com/symfony/symfony/zipball/b6dfa76b7dd313a6f407d0c0dd1c1942747d62d2",
+                "reference": "b6dfa76b7dd313a6f407d0c0dd1c1942747d62d2",
                 "shasum": ""
             },
             "require": {
@@ -399,7 +400,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "dev-master"
             },
-            "time": "1348749927",
+            "time": "1349274023",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -485,18 +486,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "b8c917972f74da88f0e930ea32a90566739d87ac"
+                "reference": "120cde3fa54c31047edf1cd003752ca119dec9a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/b8c917972f74da88f0e930ea32a90566739d87ac",
-                "reference": "b8c917972f74da88f0e930ea32a90566739d87ac",
+                "url": "https://github.com/fabpot/Twig/zipball/120cde3fa54c31047edf1cd003752ca119dec9a8",
+                "reference": "120cde3fa54c31047edf1cd003752ca119dec9a8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "1348667791",
+            "time": "1348936415",
             "type": "library",
             "extra": {
                 "branch-alias": {
