@@ -2,11 +2,13 @@
 
 namespace Loiste\MinesweeperBundle\Model;
 
+
 /**
  * This class represents a game model.
  */
 class Game {
-
+    
+   
     /**
      * A two dimensional array of game objects.
      *
@@ -14,7 +16,7 @@ class Game {
      *
      * @var array
      */
-    public $gameArea = array();
+    public $gameArea= array();
     public $status = 0; //0=new game, 1=game started, 2=win, 3=loose
     public $numberOfMines;
     public $rows;
@@ -28,19 +30,19 @@ class Game {
      */
     public function __construct($numberOfMines, $rows, $columns) {
         // Upon constructing a new game instance, setup an empty game area.
-
+    
         $this->rows = $rows;
         $this->columns = $columns;
-        $this->numberOfMines = $this->setNumberOfMines($numberOfMines);
-    }
+        $this->numberOfMines =  $this->setNumberOfMines($numberOfMines);
 
+    }
     public function getNumberOfMines() {
         return $this->numberOfMines;
     }
 
     public function setNumberOfMines($numberOfMines) {
-
-        $this->numberOfMines = round(($numberOfMines * $this->columns * $this->rows) / 100);
+        
+        $this->numberOfMines = ($numberOfMines* $this->columns*$this->rows)/100;
     }
 
     public function getRows() {
@@ -74,7 +76,7 @@ class Game {
                 if ($this->gameArea[$row][$column]->isMine()) {
                     $prevIsMine = TRUE;
                     // cells left and right
-                    if (($column >= 0 ) && ($column <= ($this->columns - 1))) {
+                    if (($column >= 0 ) && ($column <= ($this->columns-1))) {
 
                         if ($column > 0) {
 
@@ -83,7 +85,7 @@ class Game {
                             $this->setNumbers($tempRow, $tempColumn);
                         }
 
-                        if ($row > 0) {
+                        if ($row > 0 ) {
 
                             //cell above
                             $tempRow = $row - 1;
@@ -100,15 +102,15 @@ class Game {
                             }
 
                             //cell above right
-                            if ($column < ($this->columns - 1)) {
+                            if ($column < ($this->columns-1)) {
                                 $tempRow = $row - 1;
                                 $tempColumn = $column + 1;
                                 $this->setNumbers($tempRow, $tempColumn);
                             }
                         }
-
-
-                        if ($row < ($this->rows - 1)) {
+                        
+                        
+                        if ( $row <  ($this->rows -1)) {
 
                             //cell below
                             $tempRow = $row + 1;
@@ -123,7 +125,7 @@ class Game {
                             }
 
                             //cell below right
-                            if ($column < ($this->columns - 1)) {
+                            if ($column < ($this->columns-1)) {
 
                                 $tempRow = $row + 1;
                                 $tempColumn = $column + 1;

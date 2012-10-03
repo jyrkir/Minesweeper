@@ -7,13 +7,13 @@ $(function() {
     var routeMakeMove = $('#game').data('route-make-move');
 
     $('.game-cell').click(function() {
-        
-        var audio = $("#beep")[0];
-        audio.play();
         // Find out the index of column & row.
         var column = $(this).index();
         var $tr = $(this).parents('tr');
         var row = $tr.index();
+      
+        var audio = $("#beep")[0];
+        audio.play();
 
     
         // Make a move.
@@ -21,7 +21,6 @@ $(function() {
         window.location = routeMakeMove + '?column=' + column + '&row=' + row; // Simple URL param concatenation.
     });
 });
-
 
 $(document).ready(function () {
 
@@ -36,7 +35,7 @@ $('#game img').each(function() {
 
 */
 
-/*
+    //if not first page hide info..
     if(window.location.href.indexOf("makeMove") >=0) {
         $("#info").css( "width","0" );
         $("#message").text("");                 
@@ -59,13 +58,31 @@ $('#game img').each(function() {
         }); 
     }
     
-*/
+
     
     
+    $(".mine").each(function(){
+        var audio = $("#boom")[0];
+        audio.play();
+        $("#info").animate({
+            width: "100%",
+            height: "100%",
+            opacity: 0.4,
+            fontSize: "150%m",
+            borderWidth: "10px"
+        }, 1500 );
+  
+        $("#message").text("YOU LOOOSE, BOOM");
+        $("#urls").show("fast");
+    });
 
+ /*
+$("#gameAside").append('<p>' + $(window).width() + '</p>');
+$("#gameAside").append('<p>' + $(document).width() + '</p>');
+$("#gameAside").append('<p>' + $(window).height() + '</p>');
+$("#gameAside").append('<p>' + $(document).height() + '</p>');
 
-/*
- *$("#game-container").css( "left","0px" );
+$("#game-container").css( "left","0px" );
 $("game-container").css( "top","0px" );
 $("#game-container").css( "position","fixed" );
 $("#game-container").css( "width","100%" );
@@ -75,11 +92,3 @@ $("game-container").css( "height","100%" );
 
 
 });
-/*
-$(window).resize(function() {
-$("#gameAside").html('<p> window w : ' + $(window).width() + '</p>');
-$("#gameAside").append('<p> document w : ' + $(document).width() + '</p>');
-$("#gameAside").append('<p> window h ' + $(window).height() + '</p>');
-$("#gameAside").append('<p> document h : ' + $(document).height() + '</p>');
-});
-*/
