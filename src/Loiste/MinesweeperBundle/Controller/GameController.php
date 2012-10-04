@@ -17,7 +17,7 @@ class GameController extends Controller {
      */
     public function startAction(Request $request) {
         // Setup an empty game. To keep things very simple for candidates, we just store info on the session.
-        $game = new Game(5, 8, 8); // (mines, rows, columns)
+        $game = new Game(5, 12, 8); // (mines, rows, columns)
         if ($request->getMethod() == 'POST') {
 
 
@@ -85,12 +85,12 @@ class GameController extends Controller {
                         'label' => 'Mines :'
                     ))
                     ->add('rows', 'choice', array(
-                        'choices' => array('8' => '8', '12' => '12', '30' => '30'),
+                        'choices' => array('12' => '12', '16' => '16', '30' => '24'),
                         'label' => 'Rows :'
                         
                     ))
                     ->add('columns', 'choice', array(
-                        'choices' => array('8' => '8', '16' => '16', '30' => '30'),
+                        'choices' => array('8' => '8', '12' => '12', '16' => '16'),
                         'label' => 'Columns :'
                         
                     ))

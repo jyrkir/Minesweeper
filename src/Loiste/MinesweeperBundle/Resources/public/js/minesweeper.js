@@ -44,8 +44,23 @@
             } else {
                 size=Math.floor(cellHeight);
             }
-            $('img',this).css( "height",size + "px");
-            $('img',this).css( "width",size + "px");
+            var containerWidth=size*colCount;
+            var containerHeight=size*rowCount;
+            $('.game-cell',this).css( "height",size + "px");
+            $('.game-cell',this).css( "width",size + "px");
+            
+              $('img',this).css( "width",size + "px");
+              $('img',this).css( "width",size + "px");
+            
+            if (landscape) {
+                $('#game-container').css( "width", containerWidth + "px");
+                $('#game-container').css( "height",containerHeight + "px");
+                $('#game-container').css( "width", containerWidth + "px");
+                $('#game-container').css( "height",containerHeight + "px");
+            } else {
+                //logic to rotate 90 degree...
+            }
+
         
             /*
         $("#gameAside").html('<p> rows : ' + rowCount + '</p>');
@@ -60,10 +75,10 @@
             return this;
         }, 
         removeExtra: function() { 
-            $('.header-container',this).remove();
-            $('.footer-container',this).remove();
-            $('aside',this).remove();
-            $("*",this).css( "margin","0");
+            //    $('.header-container',this).remove();
+            //    $('.footer-container',this).remove();
+            //    $('aside',this).remove();
+            $("*",this).css( "margin","auto");
             $("*",this).css( "padding","0" );
             //$("*").css( "width","0" );
             return this;

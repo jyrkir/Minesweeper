@@ -1,22 +1,29 @@
 {% extends 'LoisteMinesweeperBundle::base.html.twig' %}
 {% block aside %}
-{% if status == 1 %}
-<script>
-$(document).ready(function () {  
-    $(document).removeExtra();
-    $("#game").setGameSize();
-});
-</script>
-
-{% endif %}
+{% if status != 1 %}
     <div id="gameAside">
         <ul>
             <li><a href="{{ path('LoisteMinesweeperBundle_start') }}">game</a></li>
         </ul>
     </div>
+{% endif %}
 {% endblock %}                                    
 {% block body %}
+    {% if status == 1 %}
+        <script>
+        $(document).ready(function () { 
+            $(document).removeExtra();
+            $("#game").setGameSize();
+            
+           $(window).resize(function() {
+            $(document).removeExtra();
+            $("#game").setGameSize();
+});
 
+
+        });
+        </script>
+   {% endif %}
     <article class="blog">
         <audio id="beep">
             <source src="{{ asset('bundles/loisteminesweeper/audio/beep.mp3') }}"/>

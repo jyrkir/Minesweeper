@@ -19,7 +19,7 @@
             output='css/dist/dist.css'
         %}        
             <link rel="stylesheet" href="{{ asset_url }}" />     
-        {% endstylesheets %}
+        {% endstylesheets %} 
         {% javascripts
             '@LoisteMinesweeperBundle/Resources/public/js/vendor/*'
             '@LoisteMinesweeperBundle/Resources/public/js/*'      
@@ -31,7 +31,8 @@
             <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
             <![endif]-->
-            {% block body_container_fullscreen %}
+        {% block body_container_header %}
+            {% if status != 1 %}
             <div class="header-container">
                 <header  class="wrapper clearfix">
 
@@ -44,31 +45,41 @@
                     </nav>
                 </header>
             </div>
+            {% endif %}
+         {% endblock %}
         {% block body_container_main %}
+                        {% if status != 1 %}
             <div class="main-container">
                 <div class="main wrapper clearfix">
+                               {% endif %}
+             
                     {% block body %}
-                        BODY
                     {% endblock %}
-
-                        <aside>
+                        {% if status != 1 %}
+                            <aside>
+                        {% endif %}
+                       
                     {% block aside %}
-                                BLOG ASIDE ::::
                     {% endblock %}
+                        {% if status != 1 %}
                             </aside>
+                       
                         </div> <!-- #main -->
                     </div> <!-- #main-container -->
-        {% endblock %}
+                     {% endif %}
+        {% endblock %}                  
          {% block body_container_footer %}
+                {% if status != 1 %}
                     <div class="footer-container">
                         <footer class="wrapper">
                             <h3>footer</h3>
                         </footer>
                     </div>
+                     {% endif %}
         {% endblock %}
-                    {% endblock %}
+
 {% block footerjavascripts %}
                     <script src="{{ asset('bundles/loisteminesweeper/js/main.js') }}" type="text/javascript"></script>
 {% endblock %}
-                </body>
-            </html>
+    </body>
+</html>
