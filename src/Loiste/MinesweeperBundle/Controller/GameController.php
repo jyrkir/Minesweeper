@@ -1,5 +1,4 @@
 <?php
-
 namespace Loiste\MinesweeperBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,7 +11,8 @@ class GameController extends Controller {
     /**
      * 
      * @return array gamearea, int status
-     * @todo game supports only 10x20 grid .. game class needs work
+     * @todo game supports only 10x20 grid .. 
+     * game class needs work
      *  
      */
     public function startAction(Request $request) {
