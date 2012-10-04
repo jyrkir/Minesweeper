@@ -1,85 +1,156 @@
-/*!
- * This file contains the front-end logic for the Minesweeper game.
- */
+<?php
 
-$(function() {
-    // Find out the route to the makeMove -action.
-    var routeMakeMove = $('#game').data('route-make-move');
+namespace Loiste\MinesweeperBundle\Controller;
 
-    $('.game-cell').click(function() {
-        
-        var audio = $("#beep")[0];
-        audio.play();
-        // Find out the index of column & row.
-        var column = $(this).index();
-        var $tr = $(this).parents('tr');
-        var row = $tr.index();
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Loiste\MinesweeperBundle\Model\Game;
+use Symfony\Component\HttpFoundation\Request;
 
-    
-        // Make a move.
+class GameController extends Controller {
 
-        window.location = routeMakeMove + '?column=' + column + '&row=' + row; // Simple URL param concatenation.
-    });
-});
+    /**
+     * 
+     * @return array gamearea, int status
+     * @todo game supports only 10x20 grid .. game class needs work
+     *  
+     */
+    public function startAction(Request $request) {
+        // Setup an empty game. To keep things very simple for candidates, we just store info on the session.
+        $game = new Game(5, 8, 8); // (mines, rows, columns)
+        if ($request->getMethod() == 'POST') {
 
 
-$(document).ready(function () {
-
-/*
-$('#game img').each(function() {
-  var pwidth = $(this).parent('td').width();
-  $(this).css( "width",pwidth );
-    
-    var pHeight = $(this).parent('td').height();
-  $(this).css( "height",pHeight );
-});
-
-*/
-
-/*
-    if(window.location.href.indexOf("makeMove") >=0) {
-        $("#info").css( "width","0" );
-        $("#message").text("");                 
-
-    } else {
-        
-
-        $("#info").css( "width","100%" );
-        $("#info").css( "height","100%" );
-    
-        //hide info on click
-        $("#play").click(function() {
+            /*
+              $game->setColumns($request->request->get('columns'));
+              $game->setRows($request->request->get('rows'));
+             * 
+             */
 
 
-            $("#info").stop().animate({
-                "width": "0"
-            }, {
-                duration:500
-            });
-        }); 
+            $postDataForm = $request->request->get('form');
+
+
+            $game->setColumns($postDataForm['columns']);
+            $game->setRows($postDataForm['rows']);
+            $game->setNumberOfMines($postDataForm['numberOfMines']);
+
+            /**
+             * create mine locations.
+             */
+            $game->setMineLocations();
+
+            //Put mines in grid...
+            $game->createGameObjects();
+
+            //count how many mines around cell..
+            $game->countNumberOfMines();
+            
+            if (!isset($session)) {
+            $session = new Session();
+            $session->start();
+            }
+            $session->set('game', $game);
+
+            $game->status = 1;
+            return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
+                        'gameArea' => $game->gameArea,
+                        'status' => $game->status,
+                        'rows' => $game->rows,
+                        'columns' => $game->columns
+                    ));
+        } else {
+
+            if (!isset($session)) {
+            $session = new Session();
+            $session->start();
+            }
+            /**
+             * create mine locations.
+             */
+            $game->setMineLocations();
+
+            //Put mines in grid...
+            $game->createGameObjects();
+
+            //count how many mines around cell..
+            $game->countNumberOfMines();
+            $session->set('game', $game);
+
+            $form = $this->createFormBuilder($game)
+                    
+                    ->add('numberOfMines', 'choice', array(
+                        'choices' => array('5' => '5%','10' => '10%', '20' => '20%'),
+                        'data' => 5,
+                        'label' => 'Mines :'
+                    ))
+                    ->add('rows', 'choice', array(
+                        'choices' => array('8' => '8', '12' => '12', '30' => '30'),
+                        'label' => 'Rows :'
+                        
+                    ))
+                    ->add('columns', 'choice', array(
+                        'choices' => array('8' => '8', '16' => '16', '30' => '30'),
+                        'label' => 'Columns :'
+                        
+                    ))
+                    ->getForm();
+
+            return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
+                        'gameArea' => $game->gameArea,
+                        'status' => $game->status,
+                        'rows' => $game->rows,
+                        'columns' => $game->columns,
+                        'form' => $form->createView()
+                    ));
+        }
     }
-    
-*/
-    
-    
+
+    /**
+     * 
+     * @return array gamearea, int status
+     * @todo Description
+     */
+    public function makeMoveAction() {
+
+        $row = $this->getRequest()->get('row'); // Retrieves the row index.
+        $column = $this->getRequest()->get('column'); // Retrieves the column index.
+        
+        if (!isset($session)) {
+        $session = new Session();
+        $session->start();
+        $game = $session->get('game');
+        }
+
+        /** @var $game Game */
+        if ($game->gameArea[$row][$column]->isMine()) {
+            $game->gameArea[$row][$column]->type = 4;
+
+            // game over ---->
+            $game->showMines();
+            $game->status = 3; //game lost
+        } else {
+
+            if ($game->gameArea[$row][$column]->numberOfNeighbours > 0) {
+                $game->gameArea[$row][$column]->type = 3;
+            } else {
+
+                $game->gameArea[$row][$column]->type = 2;
+                //start checking cells around..
+                $game->checkAroundCell($row, $column);
+            }
+            $game->status = $game->checkWin();
+        }
 
 
-/*
- *$("#game-container").css( "left","0px" );
-$("game-container").css( "top","0px" );
-$("#game-container").css( "position","fixed" );
-$("#game-container").css( "width","100%" );
-$("game-container").css( "height","100%" );
-*/
- 
 
 
-});
-/*
-$(window).resize(function() {
-$("#gameAside").html('<p> window w : ' + $(window).width() + '</p>');
-$("#gameAside").append('<p> document w : ' + $(document).width() + '</p>');
-$("#gameAside").append('<p> window h ' + $(window).height() + '</p>');
-$("#gameAside").append('<p> document h : ' + $(document).height() + '</p>');
-});
-*/
+        return $this->render('LoisteMinesweeperBundle:Default:index.html.twig', array(
+                    'gameArea' => $game->gameArea,
+                    'status' => $game->status,
+                    'rows' => $game->rows,
+                    'columns' => $game->columns
+                ));
+    }
+
+}
