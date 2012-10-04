@@ -2,49 +2,10 @@
 {% block aside %}
 {% if status == 1 %}
 <script>
-$(document).ready(function () {
-    
-$('.header-container').remove();
-$('.footer-container').remove();
-$('aside').remove();
-$("*").css( "margin","0");
-$("*").css( "padding","0" );
-//$("*").css( "width","0" );
-var landscape=new Boolean(false);
-
-var rowCount = $('#game tr').length;
-var colCount =$("#game").find("tr:first td").length;
-var width=$(window).width();
-var height=$(window).height();
-
-if (width>height) {
-    landscape=true;
-    };
-    
-var cellHeight=height/rowCount;
-var cellWidth= width/colCount;
-var size =0;
-
-if (cellHeight>cellWidth) {
-    size=Math.floor(cellWidth) ;
-    } else {
-        size=Math.floor(cellHeight);
-    }
-
-
-$("#gameAside").html('<p> rows : ' + rowCount + '</p>');
-$("#gameAside").append('<p> cols : ' + colCount + '</p>');
-$("#gameAside").append('<p> window w : ' + width + '</p>');
-$("#gameAside").append('<p> window height: ' + height + '</p>');
-$("#gameAside").append('<p> landscape: ' + landscape + '</p>');
-$("#gameAside").append('<p> cellWidth: ' + cellWidth + '</p>');
-$("#gameAside").append('<p> cellHeight: ' + cellHeight + '</p>');
-$("#gameAside").append('<p> size: ' + (size + "px") + '</p>');
-
-$("img").css( "height",size + "px");
-$("img").css( "width",size + "px");
+$(document).ready(function () {  
+    $(document).removeExtra();
+    $("#game").setGameSize();
 });
-
 </script>
 
 {% endif %}
@@ -103,11 +64,10 @@ $("img").css( "width",size + "px");
                             </tr>
     {% endfor %}
                         </table>
-
+{# Game won #}
 {% if status == 2 %}
                 <script>
                         $(document).ready(function () {
-
                          $('.game-cell').each(function(index) {
                               $(this).unbind('click');
                          });
@@ -126,6 +86,7 @@ $("img").css( "width",size + "px");
                         </div>
 {% endif %}
 
+{ # Game lost #}
 {% if status == 3 %}
                 <script>
                         $(document).ready(function () {
@@ -142,15 +103,17 @@ $("img").css( "width",size + "px");
                             width: "100%",
                             height: "100%",
                             opacity: 0.4,
-                            fontSize: "150%m",
+                            fontSize: "150%",
                             borderWidth: "10px"
                         }, 1500 );
                     });   
                     </script>
                         <div id="info">
+                            
                             <div id="message">
                                 You Lost!!!!!!!!!!
                             </div>
+                                
                             <div id="urls">
                                 <div id="newGame">
                                 <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
