@@ -4,9 +4,7 @@ app/logs/*
 build/
 vendor
 bin
-.idea
 composer.phar
 web/images/
 web/css/
 web/js
-nbproject/*
