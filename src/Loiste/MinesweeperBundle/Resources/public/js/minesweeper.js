@@ -1,38 +1,40 @@
 /*!
  * This file contains the front-end logic for the Minesweeper game.
- */$(function() {
-    // Find out the route to the makeMove -action.
-    var routeMakeMove = $('#game').data('route-make-move');
+ */
 
-    $('.game-cell').click(function() {
-        
-        var audio = $("#beep")[0];
-        audio.play();
-        // Find out the index of column & row.
-        var column = $(this ).index();
-        var $tr = $(this).parents('tr');
-        var row = $tr.index();
-
-    
-        // Make a move.
-
-        window.location = routeMakeMove + '?column=' + column + '&row=' + row; // Simple URL param concatenation.
-    });
-});
 
 (function($){ 
     $.fn.extend({ 
+        setGameClick: function () {
+            var routeMakeMove = $('#game').data('route-make-move');
+
+            $('.game-cell').click(function() {
         
+                var audio = $("#beep")[0];
+                audio.play();
+                // Find out the index of column & row.
+                var column = $(this ).index();
+                var $tr = $(this).parents('tr');
+                var row = $tr.index();
+
+    
+                // Make a move.
+
+                window.location = routeMakeMove + '?column=' + column + '&row=' + row; // Simple URL param concatenation.
+            });
+        },
         setGameSize: function () {
        
             var landscape=new Boolean(false);
             var rowCount = $(this).find("tr").length;  
             var colCount =$(this).find("tr:first td").length;
-            var width=$(window).width();
-            var height=$(window).height();
+            var width=$(this).parent().width();//$(window).width();
+            var height=$(this).parent().height()//$(window).height();
         
             if (width>height) {
                 landscape=true;
+            }else {
+                landscape=false;
             };
     
             var cellHeight=height/rowCount;
@@ -46,21 +48,17 @@
             }
             var containerWidth=size*colCount;
             var containerHeight=size*rowCount;
+            size=size-5; //borders to show..
             $('.game-cell',this).css( "height",size + "px");
             $('.game-cell',this).css( "width",size + "px");
             
-              $('img',this).css( "width",size + "px");
-              $('img',this).css( "width",size + "px");
+            $('img',this).css( "width",size + "px");
+            $('img',this).css( "width",size + "px");
             
-            if (landscape) {
-                $('#game-container').css( "width", containerWidth + "px");
-                $('#game-container').css( "height",containerHeight + "px");
-                $('#game-container').css( "width", containerWidth + "px");
-                $('#game-container').css( "height",containerHeight + "px");
-            } else {
-                //logic to rotate 90 degree...
-            }
-
+             
+            $($(this)).css( "width", containerWidth + "px");
+            $('#game',this).css( "height",containerHeight + "px");
+ 
         
             /*
         $("#gameAside").html('<p> rows : ' + rowCount + '</p>');
@@ -71,7 +69,8 @@
         $("#gameAside").append('<p> cellWidth: ' + cellWidth + '</p>');
         $("#gameAside").append('<p> cellHeight: ' + cellHeight + '</p>');
         $("#gameAside").append('<p> size: ' + (size + "px") + '</p>');
-        */
+        */ 
+
             return this;
         }, 
         removeExtra: function() { 
@@ -82,7 +81,44 @@
             $("*",this).css( "padding","0" );
             //$("*").css( "width","0" );
             return this;
-        } 
+        },
+        fullscreen: function() { 
+            
+            return this.each(function() {
+                    
+                $("#first").css( "z-index","1000");
+                $("#first").css( "background-color","black");
+                $("#first").css( "position","absolute");
+                $("#first").css( "left","0");
+                $("#first").css( "right","0");
+                $("#first").css( "top","0");
+                $("#first").css( "bottom","0");
+                $("#first").css( "width","100%");
+                $("#first").css( "height","100%");
+                $(this).appendTo("#first");
+                    
+            });
+        },
+        gameOver: function() { 
+
+            return this.each(function() {
+                
+                $(document).ready(function () {
+                    $(this).css( "height","0" );
+                    $(this).css( "width","0" );
+                    $(this).animate({
+                        width: "100%",
+                        height: "100%",
+                        opacity: 0.6,
+                        fontSize: "150%",
+                        borderWidth: "10px"
+                    }, 1500 );
+                    
+                });
+            });
+        }
+        
+
     }); 
 })(jQuery);
 
@@ -125,21 +161,13 @@ $('#game img').each(function() {
     }
     
 */
+                       
+
+    }); 
     
-    
 
 
-    /*
- *$("#game-container").css( "left","0px" );
-$("game-container").css( "top","0px" );
-$("#game-container").css( "position","fixed" );
-$("#game-container").css( "width","100%" );
-$("game-container").css( "height","100%" );
-*/
- 
 
-
-    });
 /*
 $(window).resize(function() {
 $("#gameAside").html('<p> window w : ' + $(window).width() + '</p>');

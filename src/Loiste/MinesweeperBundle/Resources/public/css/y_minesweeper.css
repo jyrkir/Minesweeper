@@ -43,7 +43,7 @@ h1 {
 #game-container {
 
     width: 100%;
-    height: auto;
+    min-height: 400px;
     position: relative;
     line-height: 0;
 
@@ -51,14 +51,17 @@ h1 {
 
 
 #game {
-    border-spacing: 0;
- }
+    
+   width: 100%;
+   
+}
+#game tbody{width:100%} 
 
 .game-cell {
 
-
     cursor: pointer;
-
+clear: none;
+vertical-align: middle;
 
 
 }

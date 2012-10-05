@@ -12,15 +12,19 @@
     {% if status == 1 %}
         <script>
         $(document).ready(function () { 
-            $(document).removeExtra();
-            $("#game").setGameSize();
+            $("#game-container").hide();
+            $("#first").hide();
+            $("#game-container").fullscreen();
+            $("#game-container").setGameClick();
+            $("#game-container").setGameSize();
+
+            $("#first").show();
+            $("#game-container").show();
             
-           $(window).resize(function() {
-            $(document).removeExtra();
-            $("#game").setGameSize();
-});
-
-
+            $(window).resize(function() {
+            $("#game-container").setGameSize();
+         });
+         
         });
         </script>
    {% endif %}
@@ -91,30 +95,26 @@
                             </div>
 
                         </div>
+                                <script>
+             $(document).ready(function () { 
+                 
+                // $(document).removeExtra();
+                $("#game-container").fullscreen();
+                $("#game-container").setGameSize(); 
+                $("#info").gameOver();
+
+                $(window).resize(function() {
+                    $("#game-container").setGameSize();
+                });
+                //var audio = $("#boom")[0];
+                //audio.play();
+            });
+            </script>
 {% endif %}
 
 {# Game lost #}
 {% if status == 3 %}
-                <script>
-                        $(document).ready(function () {
 
-                         $('.game-cell').each(function(index) {
-                              $(this).unbind('click');
-                         });
-                        var audio = $("#boom")[0];
-
-                        audio.play();
-                          $("#info").css( "height","0" );
-                         $("#info").css( "width","0" );
-                        $("#info").animate({
-                            width: "100%",
-                            height: "100%",
-                            opacity: 0.4,
-                            fontSize: "150%",
-                            borderWidth: "10px"
-                        }, 1500 );
-                    });   
-                    </script>
                         <div id="info">
                             
                             <div id="message">
@@ -128,20 +128,26 @@
                             </div>
 
                         </div>
-                <script>
+            <script>
+             $(document).ready(function () { 
+                // $(document).removeExtra();
+                $("#game-container").fullscreen();
+                $("#game-container").setGameSize(); 
+                $("#info").gameOver();
+
+                $(window).resize(function() {
+                    $("#game-container").setGameSize();
+                });
+                var audio = $("#boom")[0];
+                audio.play();
+            });
+            </script>
                         
 
 {% endif %}
 
+{#show game settings #}
 {% if status == 0 %}
-                <script>
-                        $(document).ready(function () {
-
-                         $('.game-cell').each(function(index) {
-                              $(this).unbind('click');
-                         });
-                    });   
-                    </script>
                     <div id="info">
                             <div id="message">
                                 Minesweeper !!!     
@@ -157,7 +163,16 @@
                                 </div>
 
                             </div>
+
         {% endif %} 
                         </div>
                     </article>
+            <script>
+                $(document).ready(function () {
+                     $("#game-container").setGameSize(); 
+                    $(window).resize(function() {
+                       $("#game-container").setGameSize();
+                    });
+                });   
+            </script>
 {% endblock %}
