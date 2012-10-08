@@ -38,10 +38,7 @@ h1 {
 */
 
 
-
-
 #game-container {
-
     width: 100%;
     min-height: 400px;
     position: relative;
@@ -51,11 +48,11 @@ h1 {
 
 
 #game {
-    
+  
    width: 100%;
    
 }
-#game tbody{width:100%} 
+
 
 .game-cell {
 
@@ -66,23 +63,19 @@ vertical-align: middle;
 
 }
 
-img-container{
-    background-color: yellow;
-
-}
-
 #info {
     background-color: black;
-    vertical-align: middle;
-    opacity:0.7;
-    filter:alpha(opacity=70); 
+    opacity:0.5;
+    filter:alpha(opacity=0); 
     position: absolute;
     left:0px;
     top:0px;
     width: 100%;
     height: 100%;
-    display: table-cell;
+    display:block;
     text-align: center;
+    vertical-align: middle;
+    font-size: 150%;
     line-height: normal;
 }
 img {
@@ -91,64 +84,51 @@ img {
 }
 
 
-#message {
 
-    font-size: 2em;
-    width:90%;
-    padding: 2%;
-}
-
-#urls  {
-
-    margin:0 auto;
+#info form {
     width:100%;
-    text-align: left;
-}
-#urls form {
-    width:100%;
+    
 }
 
-
-#urls label {
+/*
+#info label {
     display: inline;
     float: left;
     width: 40%;
     text-align: right;
     margin-top:0;
+    font-size: 80%;
 
 }
 
-.submit {
+#info .submit {
 
     background-color: #00CC00;
 }
-#urls select {
+#info select {
     display: inline;
     float: left;
     width: 40%;
     text-align: center;
     margin-top:0;
+    font-size: 80%;
 
 }
 #form {
-    width: 60%;
+    width: 100%;
+      font-size: 80%;
 }
-#playButton div{
-    width: 30%;
-    float: left;
-    padding: 2%;
-
+form >div{
+    width: 80%;
 }
-#playButton .button{
+*/
+.button{
     padding: 2%;
     font-size: 2em;
-    height: 100%;
-
-}
+   }
 #newGame {
-    margin-left: 0;
-    margin-right: 0;
-    height: 200px;
+
+
     font-size: 2em;
     text-align: center;
 }

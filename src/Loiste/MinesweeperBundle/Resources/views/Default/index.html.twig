@@ -85,19 +85,12 @@
                     });   
                     </script>
                         <div id="info">
-                            <div id="message">
-                                YOU WON!!!!!!!!!!
-                            </div>
-                            <div id="urls">
-                                <div id="newGame">
+                            <h1> YOU WON!!!!!!!!!!</h1>
                                 <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
-                                </div>
-                            </div>
-
                         </div>
-                                <script>
+            <script>
              $(document).ready(function () { 
-                 
+                
                 // $(document).removeExtra();
                 $("#game-container").fullscreen();
                 $("#game-container").setGameSize(); 
@@ -106,8 +99,7 @@
                 $(window).resize(function() {
                     $("#game-container").setGameSize();
                 });
-                //var audio = $("#boom")[0];
-                //audio.play();
+
             });
             </script>
 {% endif %}
@@ -115,18 +107,12 @@
 {# Game lost #}
 {% if status == 3 %}
 
-                        <div id="info">
-                            
-                            <div id="message">
-                                You Lost!!!!!!!!!!
-                            </div>
-                                
-                            <div id="urls">
+                        <div id="info">               
+                            <h1>You Lost!!!!!!!!!!</h1>
+ 
                                 <div id="newGame">
                                 <a href="{{ path('LoisteMinesweeperBundle_start') }}">New game</a>
                                 </div>
-                            </div>
-
                         </div>
             <script>
              $(document).ready(function () { 
@@ -149,20 +135,14 @@
 {#show game settings #}
 {% if status == 0 %}
                     <div id="info">
-                            <div id="message">
-                                Minesweeper !!!     
-                            </div>
-
-                            <div id="urls">
-                                <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
+                        <h3> Minesweeper !!!</h3> 
+                       <form action="{{ path('LoisteMinesweeperBundle_start') }}" method="post" {{ form_enctype(form) }}>
                         {{ form_widget(form) }}
-                                        <div id="playButton">
-                                            <input type="submit" value="Play" class="button"/>
-                                        </div>
-                                    </form>
-                                </div>
 
-                            </div>
+                                <input type="submit" value="Play" class="button"/>
+
+                        </form>
+                    </div>
 
         {% endif %} 
                         </div>
